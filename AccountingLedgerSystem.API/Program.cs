@@ -1,3 +1,5 @@
+using AccountingLedgerSystem.Application.Mapping;
+using AccountingLedgerSystem.Infrastructure;
 using AccountingLedgerSystem.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"))
 );
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddInfrastructure();
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

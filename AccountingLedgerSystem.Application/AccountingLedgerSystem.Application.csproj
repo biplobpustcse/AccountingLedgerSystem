@@ -16,4 +16,8 @@
     <ProjectReference Include="..\AccountingLedgerSystem.Domain\AccountingLedgerSystem.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Accounts\Queries\" />
+  </ItemGroup>
+
 </Project>
