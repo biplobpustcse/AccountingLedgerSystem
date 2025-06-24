@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountingLedgerSystem.API", "AccountingLedgerSystem.API\AccountingLedgerSystem.API.csproj", "{80DEBB24-BAEE-4468-831C-4445530900D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountingLedgerSystem.Application", "AccountingLedgerSystem.Application\AccountingLedgerSystem.Application.csproj", "{3CBFC47C-497F-4306-B427-C52C9C227AEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountingLedgerSystem.Domain", "AccountingLedgerSystem.Domain\AccountingLedgerSystem.Domain.csproj", "{5D0A1BDD-32FD-47B2-8EFE-D37510366D3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountingLedgerSystem.Infrastructure", "AccountingLedgerSystem.Infrastructure\AccountingLedgerSystem.Infrastructure.csproj", "{57C85A42-325A-4823-84E1-958D0F723D91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountingLedgerSystem.Persistence", "AccountingLedgerSystem.Persistence\AccountingLedgerSystem.Persistence.csproj", "{626852C5-FBC9-43B8-8CD3-057F3C2680E0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{80DEBB24-BAEE-4468-831C-4445530900D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80DEBB24-BAEE-4468-831C-4445530900D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80DEBB24-BAEE-4468-831C-4445530900D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80DEBB24-BAEE-4468-831C-4445530900D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CBFC47C-497F-4306-B427-C52C9C227AEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CBFC47C-497F-4306-B427-C52C9C227AEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CBFC47C-497F-4306-B427-C52C9C227AEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CBFC47C-497F-4306-B427-C52C9C227AEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D0A1BDD-32FD-47B2-8EFE-D37510366D3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D0A1BDD-32FD-47B2-8EFE-D37510366D3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D0A1BDD-32FD-47B2-8EFE-D37510366D3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D0A1BDD-32FD-47B2-8EFE-D37510366D3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57C85A42-325A-4823-84E1-958D0F723D91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57C85A42-325A-4823-84E1-958D0F723D91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57C85A42-325A-4823-84E1-958D0F723D91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57C85A42-325A-4823-84E1-958D0F723D91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{626852C5-FBC9-43B8-8CD3-057F3C2680E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{626852C5-FBC9-43B8-8CD3-057F3C2680E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{626852C5-FBC9-43B8-8CD3-057F3C2680E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{626852C5-FBC9-43B8-8CD3-057F3C2680E0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

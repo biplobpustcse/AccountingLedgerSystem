@@ -1,0 +1,6 @@
+@AccountingLedgerSystem.API_HostAddress = http://localhost:5160
+
+GET {{AccountingLedgerSystem.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
