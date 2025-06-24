@@ -1,7 +1,6 @@
 ﻿using AccountingLedgerSystem.Application.Accounts.Commands.CreateAccount;
 using AccountingLedgerSystem.Application.Accounts.Queries.GetAccounts;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AccountingLedgerSystem.API.Controllers;

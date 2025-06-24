@@ -20,6 +20,6 @@ public class CreateAccountValidator : AbstractValidator<CreateAccountCommand>
             .Must(type =>
                 new[] { "Asset", "Liability", "Equity", "Revenue", "Expense" }.Contains(type)
             )
-            .WithMessage("Invalid account type");
+            .WithMessage((command, type) => $"Invalid account type: '{command.Type}'");
     }
 }
