@@ -11,6 +11,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Account> Accounts => Set<Account>();
     public DbSet<JournalEntry> JournalEntries => Set<JournalEntry>();
     public DbSet<JournalEntryLine> JournalEntryLines => Set<JournalEntryLine>();
+    public DbSet<User> Users => Set<User>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -37,5 +38,7 @@ public class ApplicationDbContext : DbContext
             entity.Property(je => je.Date).IsRequired();
             entity.Property(je => je.Description).IsRequired();
         });
+
+        modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
     }
 }

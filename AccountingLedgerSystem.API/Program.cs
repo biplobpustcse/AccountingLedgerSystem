@@ -1,4 +1,4 @@
-using AccountingLedgerSystem.Application.Accounts.Commands.CreateAccount;
+using AccountingLedgerSystem.Application.Commands.Accounts;
 using AccountingLedgerSystem.Application.Mapping;
 using AccountingLedgerSystem.Infrastructure;
 using AccountingLedgerSystem.Infrastructure.DbInitializer;

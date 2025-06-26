@@ -1,6 +1,6 @@
-﻿using AccountingLedgerSystem.Application.DTOs;
+﻿using AccountingLedgerSystem.Application.Commands.Journal;
+using AccountingLedgerSystem.Application.DTOs;
 using AccountingLedgerSystem.Application.Interfaces;
-using AccountingLedgerSystem.Application.JournalEntries.Commands;
 using AccountingLedgerSystem.Domain.Entities;
 using AccountingLedgerSystem.Persistence.Data;
 using Microsoft.Data.SqlClient;

@@ -1,7 +1,7 @@
 ﻿using AccountingLedgerSystem.Application.DTOs;
 using MediatR;
 
-namespace AccountingLedgerSystem.Application.JournalEntries.Commands;
+namespace AccountingLedgerSystem.Application.Commands.Journal;
 
 public class CreateJournalEntryCommand : IRequest
 {

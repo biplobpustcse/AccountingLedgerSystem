@@ -1,7 +1,6 @@
 ﻿using AccountingLedgerSystem.Application.DTOs;
-using AccountingLedgerSystem.Domain.Entities;
 using MediatR;
 
-namespace AccountingLedgerSystem.Application.JournalEntries.Queries;
+namespace AccountingLedgerSystem.Application.Queries.Journal;
 
 public class GetJournalEntriesQuery : IRequest<IEnumerable<JournalEntryDto>> { }

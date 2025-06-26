@@ -1,7 +1,7 @@
 ﻿using AccountingLedgerSystem.Application.DTOs;
 using FluentValidation;
 
-namespace AccountingLedgerSystem.Application.JournalEntries.Commands;
+namespace AccountingLedgerSystem.Application.Commands.Journal;
 
 public class JournalEntryLineDtoValidator : AbstractValidator<JournalEntryLineDto>
 {

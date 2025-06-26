@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 using AccountingLedgerSystem.Domain.Entities;
 using MediatR;
 
-namespace AccountingLedgerSystem.Application.Accounts.Queries.GetAccounts;
+namespace AccountingLedgerSystem.Application.Queries.Accounts;
 
 public class GetAccountsQuery : IRequest<IEnumerable<Account>> { }

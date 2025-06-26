@@ -1,8 +1,6 @@
-﻿using AccountingLedgerSystem.Application.Accounts.Queries.GetAccounts;
-using AccountingLedgerSystem.Application.JournalEntries.Commands;
-using AccountingLedgerSystem.Application.JournalEntries.Queries;
+﻿using AccountingLedgerSystem.Application.Commands.Journal;
+using AccountingLedgerSystem.Application.Queries.Journal;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AccountingLedgerSystem.API.Controllers;

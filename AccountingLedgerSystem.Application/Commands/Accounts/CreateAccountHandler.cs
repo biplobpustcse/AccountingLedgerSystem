@@ -2,7 +2,7 @@
 using AccountingLedgerSystem.Domain.Entities;
 using MediatR;
 
-namespace AccountingLedgerSystem.Application.Accounts.Commands.CreateAccount;
+namespace AccountingLedgerSystem.Application.Commands.Accounts;
 
 public class CreateAccountHandler : IRequestHandler<CreateAccountCommand>
 {

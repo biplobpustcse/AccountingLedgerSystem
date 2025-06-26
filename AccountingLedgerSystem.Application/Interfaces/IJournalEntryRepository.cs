@@ -1,5 +1,5 @@
-﻿using AccountingLedgerSystem.Application.DTOs;
-using AccountingLedgerSystem.Application.JournalEntries.Commands;
+﻿using AccountingLedgerSystem.Application.Commands.Journal;
+using AccountingLedgerSystem.Application.DTOs;
 using AccountingLedgerSystem.Domain.Entities;
 
 namespace AccountingLedgerSystem.Application.Interfaces;

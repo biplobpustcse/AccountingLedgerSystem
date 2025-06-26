@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace AccountingLedgerSystem.Application.Accounts.Commands.CreateAccount;
+namespace AccountingLedgerSystem.Application.Commands.Accounts;
 
 public class CreateAccountValidator : AbstractValidator<CreateAccountCommand>
 {

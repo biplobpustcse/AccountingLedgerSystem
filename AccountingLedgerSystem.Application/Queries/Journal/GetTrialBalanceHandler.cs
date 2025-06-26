@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AccountingLedgerSystem.Application.DTOs;
+﻿using AccountingLedgerSystem.Application.DTOs;
 using AccountingLedgerSystem.Application.Interfaces;
 using MediatR;
 
-namespace AccountingLedgerSystem.Application.JournalEntries.Queries;
+namespace AccountingLedgerSystem.Application.Queries.Journal;
 
 public class GetTrialBalanceHandler
     : IRequestHandler<GetTrialBalanceQuery, IEnumerable<TrialBalanceDto>>

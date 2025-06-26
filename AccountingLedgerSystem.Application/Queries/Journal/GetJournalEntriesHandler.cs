@@ -1,10 +1,9 @@
 ﻿using AccountingLedgerSystem.Application.DTOs;
 using AccountingLedgerSystem.Application.Interfaces;
-using AccountingLedgerSystem.Domain.Entities;
 using AutoMapper;
 using MediatR;
 
-namespace AccountingLedgerSystem.Application.JournalEntries.Queries;
+namespace AccountingLedgerSystem.Application.Queries.Journal;
 
 public class GetJournalEntriesHandler
     : IRequestHandler<GetJournalEntriesQuery, IEnumerable<JournalEntryDto>>

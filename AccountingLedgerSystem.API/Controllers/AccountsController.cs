@@ -1,5 +1,5 @@
-﻿using AccountingLedgerSystem.Application.Accounts.Commands.CreateAccount;
-using AccountingLedgerSystem.Application.Accounts.Queries.GetAccounts;
+﻿using AccountingLedgerSystem.Application.Commands.Accounts;
+using AccountingLedgerSystem.Application.Queries.Accounts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
