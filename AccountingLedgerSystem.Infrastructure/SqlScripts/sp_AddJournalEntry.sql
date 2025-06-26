@@ -3,13 +3,14 @@ BEGIN
     EXEC('
     CREATE PROCEDURE sp_AddJournalEntry
     @Date DATETIME,
-    @Description NVARCHAR(255)
+    @Description NVARCHAR(255),
+	@NewJournalEntryId INT OUTPUT
 	AS
 	BEGIN
 		INSERT INTO JournalEntries (Date, Description)
 		VALUES (@Date, @Description);
 
-		SELECT SCOPE_IDENTITY() AS NewJournalEntryId;
+		SET @NewJournalEntryId = SCOPE_IDENTITY();
 	END	
     ')
 END

@@ -18,14 +18,14 @@ public class JournalEntriesController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpPost("journalentries")]
+    [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateJournalEntryCommand command)
     {
         await _mediator.Send(command);
         return Ok();
     }
 
-    [HttpGet("journalentries")]
+    [HttpGet]
     public async Task<IActionResult> GetAll()
     {
         var entries = await _mediator.Send(new GetJournalEntriesQuery());

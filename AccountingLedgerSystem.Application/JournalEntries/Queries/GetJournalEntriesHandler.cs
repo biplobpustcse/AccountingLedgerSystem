@@ -1,24 +1,29 @@
-﻿using AccountingLedgerSystem.Application.Interfaces;
+﻿using AccountingLedgerSystem.Application.DTOs;
+using AccountingLedgerSystem.Application.Interfaces;
 using AccountingLedgerSystem.Domain.Entities;
+using AutoMapper;
 using MediatR;
 
 namespace AccountingLedgerSystem.Application.JournalEntries.Queries;
 
 public class GetJournalEntriesHandler
-    : IRequestHandler<GetJournalEntriesQuery, IEnumerable<JournalEntry>>
+    : IRequestHandler<GetJournalEntriesQuery, IEnumerable<JournalEntryDto>>
 {
     private readonly IJournalEntryRepository _repository;
+    private readonly IMapper _mapper;
 
-    public GetJournalEntriesHandler(IJournalEntryRepository repository)
+    public GetJournalEntriesHandler(IJournalEntryRepository repository, IMapper mapper)
     {
         _repository = repository;
+        _mapper = mapper;
     }
 
-    public async Task<IEnumerable<JournalEntry>> Handle(
+    public async Task<IEnumerable<JournalEntryDto>> Handle(
         GetJournalEntriesQuery request,
         CancellationToken cancellationToken
     )
     {
-        return await _repository.GetJournalEntriesAsync();
+        var journalEntries = await _repository.GetJournalEntriesAsync();
+        return _mapper.Map<IEnumerable<JournalEntryDto>>(journalEntries);
     }
 }
