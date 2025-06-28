@@ -17,6 +17,8 @@ A lightweight and secure Accounting Ledger backend built with **ASP.NET Core Web
 - ✅ Swagger support with bearer token input
 - ✅ MediatR, AutoMapper, FluentValidation integrated
 - ✅ Secure endpoints via `[Authorize]` attribute
+- ✅ Serilog
+- ✅ RateLimiter
 
 ---
 
