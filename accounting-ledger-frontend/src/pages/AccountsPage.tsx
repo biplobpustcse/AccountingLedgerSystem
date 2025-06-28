@@ -53,7 +53,7 @@ export default function AccountsPage() {
         </button>
       </div>
 
-      <form onSubmit={handleAddAccount} className="bg-white p-4 rounded shadow-md mb-6 max-w-lg">
+      <form onSubmit={handleAddAccount} className="bg-white p-4 rounded shadow-md mb-6 min-w-full">
         <h2 className="text-xl font-semibold mb-4">Add New Account</h2>
         <input
           type="text"

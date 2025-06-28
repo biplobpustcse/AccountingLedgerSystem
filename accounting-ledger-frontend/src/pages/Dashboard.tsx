@@ -53,6 +53,12 @@ export default function Dashboard() {
         >
           → Manage Accounts
         </Link>
+        <Link
+            to="/journal-entry"
+            className="text-blue-600 underline hover:text-blue-800 mr-6"
+        >
+        → Add Journal Entry
+        </Link>
       </div>
 
       <h2 className="text-xl font-semibold mb-4">Trial Balance</h2>
