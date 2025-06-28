@@ -10,7 +10,10 @@ public class CreateUserValidator : AbstractValidator<CreateUserCommand>
             .NotNull()
             .NotEmpty()
             .WithMessage("Email is required.")
-            .EmailAddress()
+            //.EmailAddress()
+            .Must(email =>
+                !string.IsNullOrWhiteSpace(email) && email.Contains("@") && email.Contains(".")
+            )
             .WithMessage("Invalid email format.");
 
         RuleFor(x => x.Password)

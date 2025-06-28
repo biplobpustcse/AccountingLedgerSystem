@@ -23,9 +23,11 @@ public class ExceptionMiddleware
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Something went wrong!");
+            _logger.LogError(ex.Message, "Something went wrong!");
             context.Response.StatusCode = 500;
-            await context.Response.WriteAsJsonAsync(new { message = "Internal Server Error" });
+            await context.Response.WriteAsJsonAsync(
+                new { message = $"Internal Server Error:{ex.Message}" }
+            );
         }
     }
 }

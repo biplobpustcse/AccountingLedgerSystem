@@ -20,6 +20,7 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand>
     public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         var account = _mapper.Map<User>(request);
+        account.PasswordHash = PasswordHelper.GeneratePasswordHash(request.Password);
         await _repository.AddAsync(account);
         return Unit.Value;
     }
