@@ -162,3 +162,48 @@ password = "admin123"
   ]
 }
 ```
+
+## React App with Vite + Tailwind
+
+**Run this in your terminal:**
+```
+npm create vite@latest accounting-ledger-frontend --template react
+cd accounting-ledger-frontend
+```
+**Install dependencies:**
+```
+npm install
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+**Add Axios and Routing**
+```
+npm install axios react-router-dom
+```
+**Folder Structure**
+```
+src/
+├── pages/
+│   ├── LoginPage.tsx
+│   └── Dashboard.tsx  ✅
+│   └── AccountsPage.tsx  ✅
+│   └── JournalEntryPage.tsx  ✅
+
+├── api/
+│   └── axiosClient.ts ✅
+```
+**LogIn**
+![image](https://github.com/user-attachments/assets/5ca67088-546d-43d1-a3b3-1c753bc8e379)
+
+**Trial Balance**
+![image](https://github.com/user-attachments/assets/6fe42401-d693-46dc-86ec-cd0acba880ca)
+
+**Accounts**
+![image](https://github.com/user-attachments/assets/9a275101-83e1-4048-a8da-96b2a6dca019)
+
+**Journal Entry**
+![image](https://github.com/user-attachments/assets/a2cbb550-1c35-4784-991c-a0b26ae3d3cd)
+
+
+
+
