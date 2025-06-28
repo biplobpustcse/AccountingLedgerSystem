@@ -41,6 +41,11 @@ public class UserRepository : IUserRepository
         return await _context.Users.FromSqlRaw("EXEC sp_GetUsers").ToListAsync();
     }
 
+    public async Task<User?> GetUserByEmailAsync(string email)
+    {
+        return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+    }
+
     public async Task<User> GetUserAsync(string email, string password)
     {
         return await _context

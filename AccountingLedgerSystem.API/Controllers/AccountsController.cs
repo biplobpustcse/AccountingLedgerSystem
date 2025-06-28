@@ -1,12 +1,14 @@
 ﻿using AccountingLedgerSystem.Application.Commands.Accounts;
 using AccountingLedgerSystem.Application.Queries.Accounts;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AccountingLedgerSystem.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class AccountsController : ControllerBase
 {
     private readonly IMediator _mediator;

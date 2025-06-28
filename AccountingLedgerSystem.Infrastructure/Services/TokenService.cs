@@ -20,16 +20,72 @@ public class TokenService : ITokenService
         this.userRepository = userRepository;
     }
 
-    public async Task<string> AuthenticateAsync(string email, string password)
+    public async Task<(string AccessToken, string RefreshToken)> AuthenticateAsync(
+        string email,
+        string password
+    )
     {
         var passwordHash = PasswordHelper.GeneratePasswordHash(password);
         var user = await userRepository.GetUserAsync(email, passwordHash);
         if (user == null)
-        {
             throw new UnauthorizedAccessException("Invalid credentials.");
+
+        var accessToken = GenerateJwtToken(user);
+        var refreshToken = GenerateRefreshJwtToken(user);
+
+        return (accessToken, refreshToken);
+    }
+
+    public async Task<(string AccessToken, string RefreshToken)> RefreshTokenAsync(
+        string refreshToken
+    )
+    {
+        var handler = new JwtSecurityTokenHandler();
+
+        var tokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(_config["Jwt:SecretKey"]!)
+            ),
+            ValidateIssuer = true,
+            ValidIssuer = _config["Jwt:Issuer"],
+            ValidateAudience = true,
+            ValidAudience = _config["Jwt:Audience"],
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero,
+        };
+
+        try
+        {
+            var principal = handler.ValidateToken(
+                refreshToken,
+                tokenValidationParameters,
+                out var validatedToken
+            );
+
+            var tokenType = principal.FindFirst("token_type")?.Value;
+            if (tokenType != "refresh")
+                throw new SecurityTokenException("Invalid token type.");
+
+            var email = principal.FindFirst(ClaimTypes.Email)?.Value;
+            if (email == null)
+                throw new SecurityTokenException("Invalid token.");
+
+            var user = await userRepository.GetUserByEmailAsync(email); // Lightweight DB hit, optional
+
+            if (user == null)
+                throw new UnauthorizedAccessException("User not found.");
+
+            var newAccessToken = GenerateJwtToken(user);
+            var newRefreshToken = GenerateRefreshJwtToken(user);
+
+            return (newAccessToken, newRefreshToken);
         }
-        var token = GenerateJwtToken(user);
-        return await Task.FromResult(token);
+        catch (Exception)
+        {
+            throw new UnauthorizedAccessException("Invalid or expired refresh token.");
+        }
     }
 
     private string GenerateJwtToken(User user)
@@ -54,5 +110,39 @@ public class TokenService : ITokenService
         );
 
         return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+
+    private string GenerateRefreshJwtToken(User user)
+    {
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:SecretKey"]!));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        var claims = new[]
+        {
+            new Claim(ClaimTypes.Email, user.Email),
+            new Claim("token_type", "refresh"),
+        };
+
+        var refreshJwtTokenExpires = GetRefreshTokenExpiry();
+
+        var token = new JwtSecurityToken(
+            issuer: _config["Jwt:Issuer"],
+            audience: _config["Jwt:Audience"],
+            claims: claims,
+            expires: refreshJwtTokenExpires,
+            signingCredentials: creds
+        );
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+
+    private int GetRefreshTokenLifetimeDays()
+    {
+        return int.TryParse(_config["Jwt:RefreshTokenDays"], out var days) ? days : 7;
+    }
+
+    private DateTime GetRefreshTokenExpiry()
+    {
+        return DateTime.UtcNow.AddDays(GetRefreshTokenLifetimeDays());
     }
 }

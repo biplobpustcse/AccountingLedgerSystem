@@ -3,7 +3,7 @@ using AccountingLedgerSystem.Application.DTOs;
 using AccountingLedgerSystem.Application.Interfaces;
 using AccountingLedgerSystem.Application.Queries.Users;
 using MediatR;
-using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AccountingLedgerSystem.API.Controllers;
@@ -34,12 +34,26 @@ public class UsersController : ControllerBase
     {
         try
         {
-            var token = await tokenService.AuthenticateAsync(loginDto.Email, loginDto.Password);
-            return Ok(new { Token = token });
+            var tokens = await tokenService.AuthenticateAsync(loginDto.Email, loginDto.Password);
+            return Ok(new { AccessToken = tokens.AccessToken, RefreshToken = tokens.RefreshToken });
         }
         catch (UnauthorizedAccessException)
         {
             return Unauthorized(new { Message = "Invalid credentials" });
+        }
+    }
+
+    [HttpPost("refresh")]
+    public async Task<ActionResult> Refresh([FromBody] RefreshRequest request)
+    {
+        try
+        {
+            var tokens = await tokenService.RefreshTokenAsync(request.RefreshToken);
+            return Ok(new { AccessToken = tokens.AccessToken, RefreshToken = tokens.RefreshToken });
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Unauthorized(new { Message = "Invalid refresh token" });
         }
     }
 
