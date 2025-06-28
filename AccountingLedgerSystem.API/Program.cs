@@ -162,6 +162,6 @@ app.Services.SeedInitialData(); // seed sample data if needed
 
 app.UseAuthentication(); // MUST come before Authorization
 app.UseAuthorization();
-app.UseCors("AllowAngularApp");
+app.UseCors("AllowAllApp");
 app.MapControllers();
 app.Run();
