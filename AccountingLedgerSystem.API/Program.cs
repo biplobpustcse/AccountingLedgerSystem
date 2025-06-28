@@ -158,6 +158,7 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 app.Services.EnsureStoredProcedures();
+app.Services.SeedInitialData(); // seed sample data if needed
 
 app.UseAuthentication(); // MUST come before Authorization
 app.UseAuthorization();
