@@ -10,7 +10,7 @@ export default function LoginPage() {
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
     try {
-      const res = await axios.post('https://localhost:7147/api/users/login', {
+      const res = await axios.post(import.meta.env.VITE_API_BASE_URL +'/users/login', {
         email,
         password,
       })
