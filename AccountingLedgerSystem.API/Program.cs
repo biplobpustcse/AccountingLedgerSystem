@@ -1,4 +1,6 @@
 using System.Text;
+using System.Threading.RateLimiting;
+using AccountingLedgerSystem.API.Middleware;
 using AccountingLedgerSystem.Application.Commands.Accounts;
 using AccountingLedgerSystem.Application.Mapping;
 using AccountingLedgerSystem.Infrastructure;
@@ -10,6 +12,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,20 +21,25 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"))
 );
 
+// Added custom services and repositories
 builder.Services.AddInfrastructure();
+
+//AutoMapper configuration
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
+// MediatR configuration
 builder.Services.AddMediatR(typeof(CreateAccountHandler).Assembly);
 
+// FluentValidation configuration
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssembly(typeof(CreateAccountValidator).Assembly);
 
+// JWT Configuration
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var issuer = jwtSettings["Issuer"];
 var audience = jwtSettings["Audience"];
 var secretKey = jwtSettings["SecretKey"];
 
-// JWT Configuration
 builder
     .Services.AddAuthentication(options =>
     {
@@ -86,6 +94,38 @@ builder.Services.AddSwaggerGen(options =>
     );
 });
 
+// RateLimiter
+// This is a simple rate limiter that allows 3 requests per user per 5 seconds
+builder.Services.AddRateLimiter(options =>
+{
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.User.Identity?.Name
+                ?? httpContext.Request.Headers.Host.ToString(),
+            factory: partition => new FixedWindowRateLimiterOptions
+            {
+                AutoReplenishment = true,
+                PermitLimit = 3,
+                QueueLimit = 0,
+                Window = TimeSpan.FromSeconds(5),
+            }
+        )
+    );
+
+    options.OnRejected = (context, cancellationToken) =>
+    {
+        if (context.Lease.TryGetMetadata(MetadataName.RetryAfter, out var retryAfter))
+        {
+            context.HttpContext.Response.Headers.RetryAfter = retryAfter.TotalSeconds.ToString();
+        }
+
+        context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+        context.HttpContext.Response.WriteAsync("Too many requests. Please try again later.");
+
+        return new ValueTask();
+    };
+});
+
 //AddCors
 builder.Services.AddCors(options =>
 {
@@ -95,14 +135,24 @@ builder.Services.AddCors(options =>
     );
 });
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Setup Serilog BEFORE building the app
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .Enrich.FromLogContext()
+    .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+// Replace default .NET logger with Serilog
+builder.Host.UseSerilog();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline (ExceptionMiddleware)
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
 
