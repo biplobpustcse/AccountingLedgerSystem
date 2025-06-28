@@ -1,4 +1,5 @@
-﻿using AccountingLedgerSystem.Domain.Entities;
+﻿using AccountingLedgerSystem.Application.DTOs;
+using AccountingLedgerSystem.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace AccountingLedgerSystem.Persistence.Data;
@@ -13,8 +14,11 @@ public class ApplicationDbContext : DbContext
     public DbSet<JournalEntryLine> JournalEntryLines => Set<JournalEntryLine>();
     public DbSet<User> Users => Set<User>();
 
+    public DbSet<TrialBalanceDto> TrialBalanceResults { get; set; } = null!;
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        //tables
         modelBuilder.Entity<Account>(entity =>
         {
             entity.HasKey(a => a.Id);
@@ -40,5 +44,8 @@ public class ApplicationDbContext : DbContext
         });
 
         modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+
+        //sp
+        modelBuilder.Entity<TrialBalanceDto>().HasNoKey().ToView(null); // ToView(null) prevents EF from mapping it to a table
     }
 }

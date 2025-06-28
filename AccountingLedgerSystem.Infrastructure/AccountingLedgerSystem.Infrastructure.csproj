@@ -19,8 +19,4 @@
     <ProjectReference Include="..\AccountingLedgerSystem.Persistence\AccountingLedgerSystem.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="SqlScripts\" />
-  </ItemGroup>
-
 </Project>

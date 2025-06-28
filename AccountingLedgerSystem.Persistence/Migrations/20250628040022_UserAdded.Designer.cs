@@ -4,6 +4,7 @@ using AccountingLedgerSystem.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccountingLedgerSystem.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250628040022_UserAdded")]
+    partial class UserAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,33 +24,6 @@ namespace AccountingLedgerSystem.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("AccountingLedgerSystem.Application.DTOs.TrialBalanceDto", b =>
-                {
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AccountName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AccountType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("NetBalance")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalCredit")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalDebit")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.ToTable((string)null);
-
-                    b.ToView(null, (string)null);
-                });
 
             modelBuilder.Entity("AccountingLedgerSystem.Domain.Entities.Account", b =>
                 {

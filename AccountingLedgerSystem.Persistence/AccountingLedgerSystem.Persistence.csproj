@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AccountingLedgerSystem.Application\AccountingLedgerSystem.Application.csproj" />
     <ProjectReference Include="..\AccountingLedgerSystem.Domain\AccountingLedgerSystem.Domain.csproj" />
   </ItemGroup>
 

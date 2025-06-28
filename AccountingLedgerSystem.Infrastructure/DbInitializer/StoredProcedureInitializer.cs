@@ -24,6 +24,8 @@ public static class StoredProcedureInitializer
             File.ReadAllText(Path.Combine(sqlPath, "sp_AddJournalEntry.sql")),
             File.ReadAllText(Path.Combine(sqlPath, "sp_AddJournalEntryLine.sql")),
             File.ReadAllText(Path.Combine(sqlPath, "sp_GetTrialBalance.sql")),
+            File.ReadAllText(Path.Combine(sqlPath, "sp_AddUsers.sql")),
+            File.ReadAllText(Path.Combine(sqlPath, "sp_GetUsers.sql")),
         };
 
         connection.Open();

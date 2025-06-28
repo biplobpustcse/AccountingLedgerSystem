@@ -6,11 +6,11 @@ BEGIN
 	BEGIN
 		SELECT 
 			A.Id AS AccountId,
-			A.Name,
-			A.Type,
-			SUM(JL.Debit) AS TotalDebit,
-			SUM(JL.Credit) AS TotalCredit,
-			SUM(JL.Debit - JL.Credit) AS NetBalance
+			A.Name AS AccountName,
+			A.Type AS AccountType,
+			ISNULL(SUM(JL.Debit), 0) AS TotalDebit,
+			ISNULL(SUM(JL.Credit), 0) AS TotalCredit,
+			ISNULL(SUM(JL.Debit - JL.Credit), 0) AS NetBalance
 		FROM Accounts A
 		LEFT JOIN JournalEntryLines JL ON A.Id = JL.AccountId
 		GROUP BY A.Id, A.Name, A.Type;

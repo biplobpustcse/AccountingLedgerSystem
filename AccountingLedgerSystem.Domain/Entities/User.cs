@@ -1,4 +1,4 @@
-namespace AccountingLedgerSystem.Domain.Entities;
+﻿namespace AccountingLedgerSystem.Domain.Entities;
 
 public class User
 {

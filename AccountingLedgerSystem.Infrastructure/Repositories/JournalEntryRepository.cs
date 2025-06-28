@@ -80,14 +80,7 @@ public class JournalEntryRepository : IJournalEntryRepository
     public async Task<IEnumerable<TrialBalanceDto>> GetTrialBalanceAsync()
     {
         return await _context
-            .JournalEntryLines.GroupBy(l => new { l.AccountId, l.Account.Name })
-            .Select(g => new TrialBalanceDto
-            {
-                AccountId = g.Key.AccountId,
-                AccountName = g.Key.Name,
-                Debit = g.Sum(x => x.Debit),
-                Credit = g.Sum(x => x.Credit),
-            })
+            .TrialBalanceResults.FromSqlRaw("EXEC sp_GetTrialBalance")
             .ToListAsync();
     }
 }
